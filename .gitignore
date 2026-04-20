@@ -11,8 +11,7 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
-indexes/*
-!indexes/.gitkeep
+indexes/feedback.json
 
 logs/*
 !logs/.gitkeep
