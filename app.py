@@ -444,6 +444,9 @@ tab_chat, tab_debug, tab_pipeline = st.tabs(["💬 Conversation", "🔍 Sources 
 # TAB 1 — CONVERSATION
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_chat:
+    # Pick up any suggestion that was clicked on the previous render
+    pending_query = st.session_state.pop("_pending_query", None)
+
     if not st.session_state.chat:
         # Suggested questions when chat is empty
         st.markdown(
@@ -463,14 +466,8 @@ with tab_chat:
         for idx, (icon, q) in enumerate(suggestions):
             with cols[idx % 2]:
                 if st.button(f"{icon}  {q}", key=f"sug_{idx}", use_container_width=True):
-                    st.session_state._pending_suggestion = q
+                    st.session_state._pending_query = q
                     st.rerun()
-
-        if hasattr(st.session_state, "_pending_suggestion"):
-            pending = st.session_state._pending_suggestion
-            del st.session_state._pending_suggestion
-            st.session_state.chat.append({"role": "user", "content": pending})
-            st.rerun()
     else:
         st.caption("💡 Tip: include year, region, and candidate for election questions. Use **RAG toggle** in sidebar to compare pure LLM.")
 
@@ -478,7 +475,8 @@ with tab_chat:
         with st.chat_message(msg["role"]):
             st.write(msg["content"])
 
-    if prompt := st.chat_input("Ask about the election results or the 2025 budget…"):
+    typed_prompt = st.chat_input("Ask about the election results or the 2025 budget…")
+    if prompt := (pending_query or typed_prompt):
         load_dotenv_files()
         _hydrate_openai_from_streamlit_secrets()
         st.session_state.chat.append({"role": "user", "content": prompt})
