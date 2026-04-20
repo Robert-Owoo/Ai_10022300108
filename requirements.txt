@@ -1,0 +1,15 @@
+# Student Name: Robert George Owoo
+# Index Number: 10022300108
+
+streamlit>=1.36.0
+pandas>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+sentence-transformers>=3.0.0
+torch>=2.2.0
+torchvision>=0.17.0
+requests>=2.32.0
+pypdf>=4.2.0
+tqdm>=4.66.0
+python-dotenv>=1.0.1
+openai>=1.40.0
