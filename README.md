@@ -3,7 +3,6 @@
 **Student Name:** Robert George Owoo  
 **Index Number:** 10022300108
 
-Repository naming requirement: **`ai_<10022300108>`** (rename the GitHub repo accordingly when you create it).
 
 ## Overview
 This project implements a **Retrieval-Augmented Generation (RAG)** chat assistant for Academic City using:
